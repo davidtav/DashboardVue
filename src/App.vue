@@ -51,10 +51,12 @@ export default {
   },
 
   methods: {
+    // Obtém o favicon de um site
     getFaviconUrl(url) {
       try {
         const domain = new URL(url).hostname;
-        return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+        //google favicon service
+        return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`; 
       } catch (error) {
         console.error('URL inválida:', error);
         return '';
@@ -69,6 +71,7 @@ export default {
       }
     },
 
+    // Adiciona um novo link
     async addLink() {
       if (!this.newLink) {
         this.error = 'Por favor, insira um link válido';
@@ -110,6 +113,7 @@ export default {
       }
     },
 
+    // Carrega os links
     async loadLinks() {
       try {
         const response = await fetch('http://localhost:5000/links');
@@ -123,6 +127,7 @@ export default {
       }
     },
 
+    // Deleta um link existente
     async deleteLink(id) {
       try {
         const response = await fetch(`http://localhost:5000/links/${id}`, {
@@ -140,11 +145,13 @@ export default {
       }
     },
 
+    // Edita um link existente
     editLink(link) {
       this.editingLink = link;
       this.newLink = link.url;
     },
 
+    // Salva/atualiza as alterações feitas no link
     async updateLink() {
       if (!this.newLink) {
         this.error = 'Por favor, insira um link válido';
@@ -188,6 +195,7 @@ export default {
     }
   },
 
+  // Executa o método loadLinks() assim que a página é carregada
   mounted() {
     this.loadLinks();
   }
